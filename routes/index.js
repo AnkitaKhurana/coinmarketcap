@@ -7,7 +7,7 @@ const Coin = require('../db/model').Coin;
 
 route.get('/',(req,res)=>{
     // res.send(req.user);
-    var url = 'https://api.coinmarketcap.com/v1/ticker/?limit=1';
+    var url = 'https://api.coinmarketcap.com/v1/ticker/';
     request(url, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
         // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
