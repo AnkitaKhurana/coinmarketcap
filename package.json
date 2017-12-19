@@ -1,13 +1,21 @@
 {
-  "name": "coinmarketcap",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "virtual-sim-playground",
+  "version": "0.0.1",
+  "description": "Cryptocurrency simulator.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ankita Khurana",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malikankit/virtual-sim-playground.git"
+  },
+  "author": "Ankit, Halim and Aman",
   "license": "ISC",
-  "description": "",
+  "bugs": {
+    "url": "https://github.com/malikankit/virtual-sim-playground/issues"
+  },
+  "homepage": "https://github.com/malikankit/virtual-sim-playground#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
     "connect-flash": "^0.1.1",
