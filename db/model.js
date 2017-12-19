@@ -1,5 +1,5 @@
 /**
- * Created by ankita on 16/6/17.
+ * Created by ankita on 19/12/17.
  */
 
 const Sequelize = require('sequelize');
@@ -26,17 +26,17 @@ const Coin = db.define('coin', {
 
     name: Sequelize.STRING,
     symbol: Sequelize.STRING,
-    rank:Sequelize.INTEGER ,
-    price_usd: Sequelize.FLOAT,
-    price_btc: Sequelize.FLOAT,
-    tf_h_volume_usd: Sequelize.FLOAT,
-    market_cap_usd: Sequelize.FLOAT,
-    available_supply: Sequelize.FLOAT,
-    total_supply: Sequelize.FLOAT,
-    percent_change_1h: Sequelize.FLOAT,
-    percent_change_24h: Sequelize.FLOAT,
-    percent_change_7d: Sequelize.REAL,
-    last_updated: Sequelize.INTEGER
+    rank:Sequelize.STRING ,
+    price_usd: Sequelize.STRING,
+    price_btc: Sequelize.STRING,
+    tf_h_volume_usd: Sequelize.STRING,
+    market_cap_usd: Sequelize.STRING,
+    available_supply: Sequelize.STRING,
+    total_supply: Sequelize.STRING,
+    percent_change_1h: Sequelize.STRING,
+    percent_change_24h: Sequelize.STRING,
+    percent_change_7d: Sequelize.STRING,
+    last_updated: Sequelize.STRING
 });
 
 
