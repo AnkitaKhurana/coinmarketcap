@@ -7,7 +7,7 @@ const Coin = require('../db/model').Coin;
 
 route.get('/',(req,res)=>{
     // res.send(req.user);
-    var url = 'https://api.coinmarketcap.com/v1/ticker/';
+    var url = 'https://api.coinmarketcap.com/v1/ticker/?limit=1';
     request(url, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
         // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
@@ -22,7 +22,9 @@ route.get('/',(req,res)=>{
 
             Coin.bulkCreate(
 
-            newinfo,options.updateOnDuplicate
+            newinfo,{
+                    updateOnDuplicate:true
+                }
 
 
             ).then(() => { // Notice: There are no arguments here, as of right now you'll have to...
