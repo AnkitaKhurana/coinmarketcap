@@ -1,3 +1,7 @@
+/**
+ * Created by jainaman224 on 10/9/17.
+ */
+
 var webpack = require('webpack');
 var path = require('path');
 
