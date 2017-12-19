@@ -18,8 +18,6 @@ route.get('/',(req,res)=>{
         console.log(newinfo);
 
 
-
-
             Coin.bulkCreate(
 
             newinfo,{
