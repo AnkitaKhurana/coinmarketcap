@@ -15,7 +15,6 @@ const db = new Sequelize({
         min: 0,
         idle: 10000
     }
-
 });
 
 const Coin = db.define('coin', {
@@ -23,7 +22,6 @@ const Coin = db.define('coin', {
         type: Sequelize.STRING,
         primaryKey: true
     },
-
     name: Sequelize.STRING,
     symbol: Sequelize.STRING,
     rank:Sequelize.STRING ,
