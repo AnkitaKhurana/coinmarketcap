@@ -2,6 +2,7 @@
  * Created by jainaman224 on 10/9/17.
  */
 
+const async = require('async');
 const cookieParser = require('cookie-parser');
 const cron = require('node-cron');
 const bodyParser = require('body-parser');
@@ -10,86 +11,46 @@ const expressSession = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const request = require('request');
-const bitcoin = require('./app/models/user').models.Bitcoin;
-const ethereum = require('./app/models/user').models.Ethereum;
-const bitcoinCash = require('./app/models/user').models.BitcoinCash;
+const currency = require('./app/models/currencies').currency;
 const app = express();
 
-const task1 = cron.schedule('*/4 * * * *', function() {
-    request({
-        url: "https://api.coinmarketcap.com/v1/ticker/bitcoin",
-        method: "GET",
-        timeout: 10000
-    }, function(error, response, body) {
-        if(!error && response.statusCode == 200) {
-            body = JSON.parse(body);
-            bitcoin.findOrCreate({ where: {
-                timestamp: parseInt(body[0].last_updated)
-            },
-                defaults : {
-                    price: parseFloat(body[0].price_usd)
-                }}).then((coin, created) => {
-                console.log(coin);
-            }).catch((err) => {
-                console.log(err);
-            })
-        } else {
-            console.log('error');
-        }
-    });
-}, false);
+const configDB = require('./config/database');
+const cryptocurrency = configDB.cryptocurrency;
 
-const task2 = cron.schedule('*/4 * * * *', function() {
-    request({
-        url: "https://api.coinmarketcap.com/v1/ticker/ethereum",
-        method: "GET",
-        timeout: 10000
-    }, function(error, response, body) {
-        if(!error && response.statusCode == 200) {
-            body = JSON.parse(body);
-            ethereum.findOrCreate({ where: {
-                timestamp: parseInt(body[0].last_updated)
-            },
-                defaults : {
-                    price: parseFloat(body[0].price_usd)
-                }}).then((coin, created) => {
-                console.log(coin);
-            }).catch((err) => {
-                console.log(err);
-            })
-        } else {
-            console.log('error');
-        }
-    });
-}, false);
+const parallelfunctions = {};
 
-const task3 = cron.schedule('*/4 * * * *', function() {
-    request({
-        url: "https://api.coinmarketcap.com/v1/ticker/bitcoin-cash",
-        method: "GET",
-        timeout: 10000
-    }, function(error, response, body) {
-        if(!error && response.statusCode == 200) {
-            body = JSON.parse(body);
-            bitcoinCash.findOrCreate({ where: {
-                timestamp: parseInt(body[0].last_updated)
-            },
+for (each in cryptocurrency) {
+    parallelfunctions[each] = function(callback) {
+        request("https://api.cryptonator.com/api/ticker/" + each + "-usd", function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                callback(null, body);
+            } else {
+                callback(true, {});
+            }
+        });
+    }
+}
+
+const task1 = cron.schedule('* * * * *', function() {
+    async.parallel(parallelfunctions,
+        function(err, result){
+            for (each in result) {
+                body = JSON.parse(JSON.stringify(result[each]));
+                currency[each].findOrCreate({ where: {
+                    timestamp: parseInt(body.timestamp)
+                },
                 defaults : {
-                    price: parseFloat(body[0].price_usd)
+                    price: parseFloat(body.ticker.price)
                 }}).then((coin, created) => {
-                console.log(coin);
-            }).catch((err) => {
-                console.log(err);
-            })
-        } else {
-            console.log('error');
-        }
-    });
+                    console.log('no error');
+                }).catch((err) => {
+                    console.log(err);
+                })
+            }
+        });
 }, false);
 
 task1.start();
-task2.start();
-task3.start();
 
 require('./config/passport')(passport);
 
