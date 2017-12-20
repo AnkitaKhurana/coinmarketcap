@@ -27,43 +27,6 @@ const User = db.define('user', {
     name: {
         type: Sequelize.STRING
     }
-
-});
-
-const Bitcoin = db.define('bitcoin', {
-
-    timestamp: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
-    },
-    price: {
-       type: Sequelize.FLOAT
-    }
-
-});
-
-const Ethereum = db.define('ethereum', {
-
-    timestamp: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
-    },
-    price: {
-        type: Sequelize.FLOAT
-    }
-
-});
-
-const BitcoinCash = db.define('bitcoincash', {
-
-    timestamp: {
-        type: Sequelize.INTEGER,
-        primaryKey: true
-    },
-    price: {
-        type: Sequelize.FLOAT
-    }
-
 });
 
 db.sync({force: false})
@@ -78,9 +41,6 @@ db.sync({force: false})
 module.exports = {
     db,
     models: {
-        User,
-        Bitcoin,
-        BitcoinCash,
-        Ethereum
+        User
     }
 };

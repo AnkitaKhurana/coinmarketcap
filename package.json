@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/malikankit/virtual-sim-playground#readme",
   "dependencies": {
+    "async": "^2.6.0",
     "body-parser": "^1.17.2",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
