@@ -9,12 +9,12 @@ module.exports = {
     'cryptocurrency': {
     	'BTC': 'BTC',
     	'ETH': 'ETH',
-    	'BCH': 'BCH',
+    	'IOTA': 'IOTA',
     	'XRP': 'XRP',
     	'LTC': 'LTC',
     	'ADA': 'ADA',
     	'DASH': 'DASH',
-    	'XEM': 'XEM',
+    	'TRX': 'TRX',
     	'BTG': 'BTG',
     	'XMR': 'XMR',
     	'NEO': 'NEO',
@@ -25,6 +25,7 @@ module.exports = {
     	'OMG': 'OMG',
     	'ZEC': 'ZEC',
     	'WAVES': 'WAVES',
-    	'XVG': 'XVG'
+    	'XVG': 'XVG',
+    	'EOS': 'EOS'
     }
 };

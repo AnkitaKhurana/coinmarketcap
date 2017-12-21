@@ -17,40 +17,44 @@ const app = express();
 const configDB = require('./config/database');
 const cryptocurrency = configDB.cryptocurrency;
 
-const parallelfunctions = {};
-
-for (each in cryptocurrency) {
-    parallelfunctions[each] = function(callback) {
-        request("https://api.cryptonator.com/api/ticker/" + each + "-usd", function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                callback(null, body);
-            } else {
-                callback(true, {});
-            }
-        });
-    }
-}
-
-const task1 = cron.schedule('* * * * *', function() {
-    async.parallel(parallelfunctions,
-        function(err, result){
-            for (each in result) {
-                body = JSON.parse(JSON.stringify(result[each]));
-                currency[each].findOrCreate({ where: {
-                    timestamp: parseInt(body.timestamp)
-                },
-                defaults : {
-                    price: parseFloat(body.ticker.price)
-                }}).then((coin, created) => {
-                    console.log('no error');
-                }).catch((err) => {
-                    console.log(err);
+cron.schedule('* * * * *', function() {
+    request('https://api.cryptonator.com/api/ticker/btc-usd', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            body = JSON.parse(body);
+            usd = parseFloat(body.ticker.price);
+            currency['BTC'].findOrCreate({ where: {
+                timestamp: new Date().getTime()/1000
+            },
+            defaults : {
+                price: usd
+            }}).then((coin, created) => {
+                request('https://api.binance.com/api/v1/ticker/allPrices', function (error, response, body) {
+                    if (!error && response.statusCode == 200) {
+                        body = JSON.parse(body);
+                        for (each1 in body){
+                            for (each in cryptocurrency) {
+                                if (body[each1]['symbol'] == each + 'BTC') {
+                                    currency[each].findOrCreate({ where: {
+                                        timestamp: new Date().getTime()/1000
+                                    },
+                                    defaults : {
+                                        price: parseFloat(body[each1]['price']) * usd
+                                    }}).then((coin, created) => {
+                                        
+                                    }).catch((err) => {
+                                        console.log(err);
+                                    });
+                                }
+                            }
+                        }
+                    }
                 })
-            }
-        });
-}, false);
-
-task1.start();
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    });
+}).start();
 
 require('./config/passport')(passport);
 
