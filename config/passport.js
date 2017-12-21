@@ -20,13 +20,19 @@ module.exports = function(passport) {
 
         function(req, token, refreshToken, profile, cb) {
             process.nextTick(function() {
-                User.findOrCreate({where: {
-                    id: profile.id,
-                    token: token,
-                    email: '',
-                    name: profile.displayName
-                }}).then((user) => {
+                User.findOrCreate({
+                    where: {
+                        id: profile.id
+                    },
+                    defaults: {
+                        token: token,
+                        email: '',
+                        name: profile.displayName
+                    }
+                }).then((user, created) => {
                     return cb(null, user);
+                }).catch(err => {
+                    console.log(err);
                 });
             });
         }));
@@ -39,20 +45,23 @@ module.exports = function(passport) {
         },
 
         function(req, token, refreshToken, profile, cb) {
-
             process.nextTick(function() {
-
-                User.findOrCreate({where: {
-                    id: profile.id,
-                    token: token,
-                    email: '',
-                    name: profile.displayName
-                }}).then((user, created) => {
+                User.findOrCreate({
+                    where: {
+                        id: profile.id
+                    },
+                    defaults: {
+                        token: token,
+                        email: '',
+                        name: profile.displayName
+                    }
+                }).then((user, created) => {
+                    console.log(user);
                     return cb(null, user);
+                }).catch(err => {
+                    console.log(err);
                 });
-
             });
-
         }));
 
         passport.serializeUser(function(user, cb) {
