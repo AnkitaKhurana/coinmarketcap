@@ -3,13 +3,8 @@
  */
 
 const async = require('async');
-const cookieParser = require('cookie-parser');
 const cron = require('node-cron');
-const bodyParser = require('body-parser');
 const express = require('express');
-const expressSession = require('express-session');
-const flash = require('connect-flash');
-const passport = require('passport');
 const request = require('request');
 const currency = require('./app/models/currencies').currency;
 const app = express();
@@ -56,23 +51,6 @@ cron.schedule('* * * * *', function() {
     });
 }).start();
 
-require('./config/passport')(passport);
-
-app.set('view engine', 'ejs');
-app.use(express.static("static/"));
-
-app.use(cookieParser('abracadabra'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(expressSession({
-    secret: 'abracadabra',
-    resave: false,
-    saveUninitialized: false,
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-
-require('./app/routes.js')(app, passport);
 
 app.use('/api', require('./app/api.js'));
 

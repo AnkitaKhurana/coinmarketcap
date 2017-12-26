@@ -1,5 +1,5 @@
 {
-  "name": "virtual-sim-playground",
+  "name": "coinmarketcap",
   "version": "0.0.1",
   "description": "Cryptocurrency simulator.",
   "main": "server.js",
@@ -8,39 +8,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/malikankit/virtual-sim-playground.git"
+    "url": "git+https://github.com/AnkitaKhurana/coinmarketcap.git"
   },
-  "author": "Ankit, Halim and Aman",
+  "author": "Ankita and Aman",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/malikankit/virtual-sim-playground/issues"
+    "url": "https://github.com/AnkitaKhurana/coinmarketcap/issues"
   },
-  "homepage": "https://github.com/malikankit/virtual-sim-playground#readme",
+  "homepage": "https://github.com/AnkitaKhurana/coinmarketcap#readme",
   "dependencies": {
     "async": "^2.6.0",
-    "body-parser": "^1.17.2",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.3",
-    "ejs": "^2.5.7",
     "express": "^4.15.4",
-    "express-session": "^1.15.5",
     "mysql2": "^1.4.2",
     "node-cron": "^1.2.1",
-    "passport": "^0.4.0",
-    "passport-facebook": "^2.1.1",
-    "passport-google-oauth": "^1.0.0",
-    "passport-local": "^1.0.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "request": "^2.81.0",
     "sequelize": "^4.8.2"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "webpack": "^3.5.6"
   }
 }
