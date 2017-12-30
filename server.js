@@ -42,6 +42,7 @@ cron.schedule('* * * * *', function() {
                                 }
                             }
                         }
+
                     }
                 })
             }).catch((err) => {
