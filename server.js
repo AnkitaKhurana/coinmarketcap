@@ -8,7 +8,8 @@ const express = require('express');
 const request = require('request');
 const currency = require('./app/models/currencies').currency;
 const app = express();
-
+const cors = require('cors');
+app.use(cors());
 const configDB = require('./config/database');
 const cryptocurrency = configDB.cryptocurrency;
 
