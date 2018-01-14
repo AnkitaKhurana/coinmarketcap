@@ -16,17 +16,22 @@ const db = new Sequelize(configDB.name,
 const User = db.define('user', {
     id: {
         type: Sequelize.STRING,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     token: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique:true
     },
     email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique:true
     },
-    name: {
-        type: Sequelize.STRING
-    }
+    username: {
+        type: Sequelize.STRING,
+        unique:true
+    },
+    password: Sequelize.STRING
 });
 
 db.sync({force: false})
