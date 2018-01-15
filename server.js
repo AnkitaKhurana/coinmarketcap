@@ -10,8 +10,8 @@ const currency = require('./app/models/currencies').currency;
 const app = express();
 const cors = require('cors');
 app.use(cors());
-const configDB = require('./config/database');
-const cryptocurrency = configDB.cryptocurrency;
+
+const cryptocurrency = require('./config/database').cryptocurrency;
 
 cron.schedule('* * * * *', function() {
     request('https://api.cryptonator.com/api/ticker/btc-usd', function (error, response, body) {
@@ -36,7 +36,7 @@ cron.schedule('* * * * *', function() {
                                     defaults : {
                                         price: parseFloat(body[each1]['price']) * usd
                                     }}).then((coin, created) => {
-                                        
+
                                     }).catch((err) => {
                                         console.log(err);
                                     });
