@@ -2,8 +2,8 @@
  * Created by championswimmer on 15/06/17.
  */
 const route = require('express').Router();
-const User = require('../app/models/user').User;
-const AuthToken = require('../app/models/user').AuthToken;
+const User = require('../models/user').User;
+const AuthToken = require('../models/user').AuthToken;
 const uid2 = require('uid2');
 
 route.post('/signup', (req, res) => {

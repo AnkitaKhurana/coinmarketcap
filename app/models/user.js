@@ -34,7 +34,7 @@ const AuthToken = db.define('authtoken', {
     }
 });
 
-User.hasOne(AuthToken);
+AuthToken.belongsTo(User);
 
 module.exports = {
     User,
