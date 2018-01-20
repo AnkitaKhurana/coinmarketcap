@@ -37,5 +37,6 @@ const AuthToken = db.define('authtoken', {
 User.hasOne(AuthToken);
 
 module.exports = {
-    User
+    User,
+    AuthToken
 };
