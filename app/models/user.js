@@ -4,15 +4,11 @@
 const db = require('./index').db;
 const Sequelize = require('sequelize');
 
-const User = db.define('User', {
+const User = db.define('user', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    token: {
-        type: Sequelize.STRING,
-        unique:true
     },
     email: {
         type: Sequelize.STRING,
@@ -25,6 +21,22 @@ const User = db.define('User', {
     password: Sequelize.STRING
 });
 
+const AuthToken = db.define('authtoken', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    token: {
+        type: Sequelize.STRING,
+        unique: true,
+        index: true
+    }
+});
+
+AuthToken.belongsTo(User);
+
 module.exports = {
-    User
+    User,
+    AuthToken
 };
